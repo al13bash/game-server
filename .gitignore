@@ -1,0 +1,37 @@
+# bundler state
+/.bundle
+/vendor/bundle/
+/vendor/ruby/
+
+# Ignore the default SQLite database.
+/db/*.sqlite3
+/db/*.sqlite3-journal
+
+# Ignore all logfiles and tempfiles.
+/log/*
+/tmp/*
+!/log/.keep
+!/tmp/.keep
+
+# various artifacts
+/doc/api/
+/doc/app/
+/doc/features.html
+/doc/specs.html
+
+# Ignore Byebug command history file.
+.byebug_history
+
+# vim artifacts
+**.swp
+*.swo
+
+# Ignore application configuration
+/config/database.yml
+/config/secrets.yml
+
+/public/uploads/
+/public/assets/
+
+# Mac finder artifacts
+.DS_Store
