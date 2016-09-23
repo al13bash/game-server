@@ -1,0 +1,8 @@
+// Custom bootstrap variables must be set or imported before bootstrap itself.
+@import "bootstrap";
+
+.content {
+  width: 700px;
+  margin: 0 auto;
+  padding-top: 30px;
+}

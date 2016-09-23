@@ -1,0 +1,20 @@
+doctype html
+html
+  head
+    meta content=("text/html; charset=UTF-8") http-equiv="Content-Type" /
+    title GameServer
+    = csrf_meta_tags
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+  body
+    nav.navbar.navbar-dark.bg-inverse
+      button.navbar-toggler.hidden-sm-up aria-controls="exCollapsingNavbar2" aria-expanded="false" aria-label=("Toggle navigation") data-target="#exCollapsingNavbar2" data-toggle="collapse" type="button" 
+        | ☰
+      #exCollapsingNavbar2.collapse.navbar-toggleable-xs
+        = link_to 'GameServer', root_path, class: 'navbar-brand'
+
+        ul.nav.navbar-nav.pull-xs-right
+          = authentication_buttons
+
+    .content
+      = yield
