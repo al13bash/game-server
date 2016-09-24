@@ -1,1 +1,6 @@
-h1 User Cabinet
+.accounts-block.col-xs-4.pull-xs-right
+  .card
+    .card-header Accounts
+    .card-block
+      - @user.accounts.each do |account|
+        = account.amount.format
