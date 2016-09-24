@@ -14,9 +14,11 @@ gem 'devise'
 gem 'simple_form'
 gem 'slim-rails'
 gem 'bootstrap', '~> 4.0.0.alpha4'
+gem 'money-rails'
+gem 'monetize'
 
 group :development, :test do
-  gem 'byebug', platform: :mri
+  gem 'pry'
 end
 
 group :development do

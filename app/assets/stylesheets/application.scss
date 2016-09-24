@@ -1,8 +1,13 @@
 // Custom bootstrap variables must be set or imported before bootstrap itself.
 @import "bootstrap";
 
+abbr[title], abbr[data-original-title] {
+  border-bottom: none;
+  text-decoration: none;
+}
+
 .content {
-  width: 700px;
+  width: 900px;
   margin: 0 auto;
   padding-top: 30px;
 }
