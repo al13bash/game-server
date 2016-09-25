@@ -1,6 +1,10 @@
 .accounts-block.col-xs-4.pull-xs-right
   .card
     .card-header Accounts
-    .card-block
+    ul.list-group.list-group-flush
       - @user.accounts.each do |account|
-        = account.amount.format
+        li.list-group-item
+          = account.amount.format
+          .pull-xs-right
+            -if account.active
+              | active
