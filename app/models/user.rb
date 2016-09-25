@@ -10,6 +10,6 @@ class User < ApplicationRecord
   private
 
   def create_account_for_user
-    self.accounts.build(amount_money: 100_000)
+    self.accounts.build(amount_money: 100_000, active: true)
   end
 end
