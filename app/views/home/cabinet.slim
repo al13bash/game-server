@@ -5,6 +5,3 @@
       - @user.accounts.each do |account|
         li.list-group-item
           = account.amount.format
-          .pull-xs-right
-            -if account.active
-              | active
