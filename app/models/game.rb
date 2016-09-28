@@ -1,4 +1,23 @@
 class Game < ApplicationRecord
+  include AASM
+
+  aasm column: 'status' do
+    state :pending, initial: true
+    state :failure, :in_progress, :done
+
+    event :fail do
+      transitions from: [:pending, :in_progress], to: :failure
+    end
+
+    event :proceed do
+      transitions from: :pending, to: :in_progress
+    end
+
+    event :complete do
+      transitions from: :in_progress, to: :done
+    end
+  end
+
   belongs_to :user
 
   validates :bet_amount_money, :win_amount_money,
