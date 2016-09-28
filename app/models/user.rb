@@ -1,11 +1,11 @@
 class User < ApplicationRecord
+  has_many :accounts
+  has_many :games
+
   after_create :create_account_for_user
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-
-  has_many :accounts
-  has_many :games
 
   private
 
