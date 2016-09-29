@@ -2,7 +2,7 @@ class Game < ApplicationRecord
   include AASM
 
   belongs_to :user
-  has_one :account
+  belongs_to :account
 
   validates :bet_amount_cents, :win_amount_cents,
             numericality: { greater_than_or_equal_to: 0 }

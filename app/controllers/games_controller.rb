@@ -8,6 +8,7 @@ class GamesController < ApplicationController
     @game = current_user.games.build(game_params)
 
     if @game.save
+      GameWorker.perform_async(@game.id)
       render 'new', notice: 'Game created'
     else
       render 'new'

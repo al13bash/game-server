@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160929081020) do
+ActiveRecord::Schema.define(version: 20160929105732) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,8 @@ ActiveRecord::Schema.define(version: 20160929081020) do
     t.string   "bet_amount_currency", default: "EUR", null: false
     t.integer  "win_amount_cents",    default: 0,     null: false
     t.string   "win_amount_currency", default: "EUR", null: false
+    t.integer  "account_id"
+    t.index ["account_id"], name: "index_games_on_account_id", using: :btree
     t.index ["user_id"], name: "index_games_on_user_id", using: :btree
   end
 
