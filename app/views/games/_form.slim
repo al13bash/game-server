@@ -1,0 +1,10 @@
+= simple_form_for(@game, url: user_games_path) do |f|
+  .row
+    .col-xs-3
+      = f.input :bet_amount_cents, as: :integer, label: false, placeholder: 'Bet amount'
+
+    .col-xs-6
+      = f.input :account, collection: accounts_select(@accounts), label: false
+
+    .col-xs-3
+      = f.button :submit, class: 'btn btn-success', value: 'Submit bet'
