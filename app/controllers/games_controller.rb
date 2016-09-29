@@ -17,6 +17,6 @@ class GamesController < ApplicationController
   private
 
   def game_params
-    params.require(:game).permit(:bet_amount_money)
+    params.require(:game).permit(:bet_amount_cents, :account_id)
   end
 end
