@@ -10,29 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160928065020) do
+ActiveRecord::Schema.define(version: 20160929081020) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "accounts", force: :cascade do |t|
-    t.money    "amount_money", scale: 2
-    t.boolean  "active",                 default: false, null: false
     t.integer  "user_id"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.string   "currency"
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.integer  "amount_cents",    default: 0,     null: false
+    t.string   "amount_currency", default: "EUR", null: false
     t.index ["user_id"], name: "index_accounts_on_user_id", using: :btree
   end
 
   create_table "games", id: :bigserial, force: :cascade do |t|
-    t.money    "bet_amount_money", scale: 2
-    t.money    "win_amount_money", scale: 2
     t.integer  "user_id"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.datetime "finished_at"
     t.string   "status"
+    t.integer  "bet_amount_cents",    default: 0,     null: false
+    t.string   "bet_amount_currency", default: "EUR", null: false
+    t.integer  "win_amount_cents",    default: 0,     null: false
+    t.string   "win_amount_currency", default: "EUR", null: false
     t.index ["user_id"], name: "index_games_on_user_id", using: :btree
   end
 

@@ -3,11 +3,13 @@ class Game < ApplicationRecord
 
   belongs_to :user
 
-  validates :bet_amount_money, :win_amount_money,
+  validates :bet_amount_cents, :win_amount_cents,
             numericality: { greater_than_or_equal_to: 0 }
 
-  monetize :bet_amount_money, as: :bet_amount
-  monetize :win_amount_money, as: :win_amount
+  monetize :bet_amount_cents, as: :bet_amount,
+                              with_model_currency: :bet_amount_currency
+  monetize :win_amount_cents, as: :win_amount,
+                              with_model_currency: :win_amount_currency
 
   aasm column: 'status' do
     state :pending, initial: true
