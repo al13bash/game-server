@@ -8,6 +8,8 @@ Bundler.require(*Rails.groups)
 
 module GameServer
   class Application < Rails::Application
+    config.autoload_paths << Rails.root.join('services')
+
     config.generators do |g|
       g.stylesheets = false
       g.javascripts = false

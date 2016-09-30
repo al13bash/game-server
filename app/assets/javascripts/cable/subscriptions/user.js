@@ -18,7 +18,7 @@ App.cable.subscriptions.create({
     });
   },
   createGame: function(data) {
-    this.perform('create_game', data);
+    $.post('/games', { game: data });
   },
   disconnected: function(data) {
     console.log('disconnected', data);

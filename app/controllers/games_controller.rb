@@ -9,13 +9,17 @@ class GamesController < ApplicationController
 
     if @game.save
       GameWorker.perform_async(@game.id)
-      render 'new', notice: 'Game created'
+      connection.success
     else
-      render 'new'
+      connection.failure
     end
   end
 
   private
+
+  def connection
+    @_connection ||= Games::ActionCableConnector.new(user_id: current_user.id)
+  end
 
   def game_params
     params.require(:game).permit(:bet_amount_cents, :account_id)
