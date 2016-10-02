@@ -1,7 +1,5 @@
 module Games
-  class PlayService  
-    BET_API_URL = 'https://www.random.org/integers/'
-
+  class PlayService
     attr_reader :game
 
     delegate :account, to: :game
@@ -13,9 +11,18 @@ module Games
     def perform
       Game.transaction do
         init_bet_amount
-        bet_amount_valid? ? process : @game.fail!
-        connection.transaction_failed if @game.failure?
+        bet_amount_valid? ? process : transaction_failed
       end
+    end
+
+    def process
+      transaction_in_progress
+      init_win_amount(win_amount: generator.generate)
+      transaction_completed
+    end
+
+    def bet_amount_valid?
+      account.amount > game.bet_amount
     end
 
     def init_bet_amount
@@ -25,25 +32,26 @@ module Games
 
     def init_win_amount(win_amount:)
       game.update(win_amount: Money.new(win_amount *
-        currency.subunit_to_unit, @currency))
+        currency.subunit_to_unit, currency))
     end
 
-    def process
+    def transaction_failed
+      game.fail!
+      connection.transaction_failed
+    end
+
+    def transaction_in_progress
       game.proceed!
       connection.transaction_in_progress
-      response = random_org_request
-      init_win_amount(win_amount: response)
+    end
+
+    def transaction_completed
       game.complete!
-      connection.transaction_completed
+      connection.transaction_completed(game: game)
     end
 
-    def random_org_request
-      response = RestClient.get "#{BET_API_URL}?#{url_params}"
-      response.body.to_i
-    end
-
-    def bet_amount_valid?
-      account.amount > game.bet_amount
+    def generator
+      @_generator = RandomApi::IntegerGenerator.new(max: game.bet_amount.to_i)
     end
 
     def currency
@@ -52,13 +60,6 @@ module Games
 
     def connection
       @_connection ||= Games::ActionCableConnector.new(user_id: game.user_id)
-    end
-
-    def url_params
-      @_url_params ||= {
-        num: 1, min: 0, max: 2 * game.bet_amount.to_i,
-        col: 1, base: 10, format: 'plain', rnd: 'new'
-      }.to_query
     end
   end
 end
