@@ -18,7 +18,7 @@ App.cable.subscriptions.create({
     });
   },
   createGame: function(data) {
-    this.perform('create_game', data);
+    $.post('/games', { game: data });
   },
   disconnected: function(data) {
     console.log('disconnected', data);
@@ -28,5 +28,17 @@ App.cable.subscriptions.create({
   },
   received: function(data) {
     console.log('received', data);
+    var status = data.status;
+
+    switch (status) {
+      case 'transaction_completed':
+        this.addGameToTable(data.partial);
+        break;
+      default:
+        console.log('default')
+    }
+  },
+  addGameToTable: function(partial) {
+    $('.game-table tbody').prepend(partial);
   }
 });

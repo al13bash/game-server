@@ -1,10 +1,9 @@
 class UserChannel < ApplicationCable::Channel
   def subscribed
-    stream_for current_user
+    stream_from "channel_for_#{current_user.id}"
   end
 
   def unsubscribed
-
   end
 
   def create_game(data)

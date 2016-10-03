@@ -1,9 +1,11 @@
 source 'https://rubygems.org'
 
 gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
-gem 'pg'
+gem 'pg', '~> 0.19.0'
 
-gem 'aasm'
+gem 'aasm', '~> 4.11.1'
+gem 'sidekiq', '~> 4.2.2'
+gem 'rest-client', '~> 2.0.0'
 
 gem 'puma', '~> 3.0'
 gem 'sass-rails', '~> 5.0'
