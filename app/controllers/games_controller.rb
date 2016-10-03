@@ -6,10 +6,11 @@ class GamesController < ApplicationController
 
   def create
     @game = current_user.games.build(game_params)
+    @game.bet_amount_currency = @game.account.amount_currency
 
     if @game.save
       GameWorker.perform_async(@game.id)
-      connection.success
+      connection.success(@game)
     else
       connection.failure
     end
