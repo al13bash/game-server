@@ -1,14 +1,12 @@
 .row
   form.new-game-form
     .col-xs-3
-      label for='bet_amount_cents' Enter bet amount
-      input.form-control type='number' id='bet_amount_cents' name='bet_amount_cents'
+      label for='bet_amount_cents' Enter bet
+      input.form-control type='number' id='bet_amount_cents' name='bet_amount_cents' required=true
 
     .col-xs-6
       label for='account_id' Select your account
-      select.form-control id='account_id' name='account_id'
-        - accounts_select(current_user.accounts).each do |account|
-          option value=account[:value] #{account[:label]}
+      = render 'games/accounts_select', accounts: current_user.ordered_accounts
 
     .col-xs-3
       label Click for submit
