@@ -1,5 +1,11 @@
 .game-block.col-xs-9
-  = render 'games/form'
+  .col-xs-12.m-b-2
+    h4 Game form
+    = render 'games/form'
+
+  .col-xs-12
+    h4 Last games
+    = render 'games/games'
 
 .accounts-block.col-xs-3.pull-xs-right
   .card

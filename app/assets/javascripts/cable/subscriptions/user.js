@@ -28,5 +28,17 @@ App.cable.subscriptions.create({
   },
   received: function(data) {
     console.log('received', data);
+    var status = data.status;
+
+    switch (status) {
+      case 'transaction_completed':
+        this.addGameToTable(data.partial);
+        break;
+      default:
+        console.log('default')
+    }
+  },
+  addGameToTable: function(partial) {
+    $('.game-table tbody').prepend(partial);
   }
 });

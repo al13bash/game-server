@@ -1,0 +1,11 @@
+table.table.game-table
+  thead
+    tr
+      th Id
+      th Bet amount
+      th Win amount
+      th Status
+
+  tbody
+    - @games.each do |game|
+      = render 'games/game', game: game

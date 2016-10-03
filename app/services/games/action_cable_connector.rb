@@ -26,7 +26,7 @@ module Games
                                                 formats: [:html],
                                                 locals: { game: game },
                                                 layout: false)
-      broadcast(channel, data: 'transaction completed', partial: partial)
+      broadcast(channel, status: 'transaction_completed', partial: partial)
     end
 
     def transaction_in_progress

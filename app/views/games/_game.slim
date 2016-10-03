@@ -1,6 +1,14 @@
-.row
-  .col-xs-3
-    = game.bet_amount.format
-
-  .col-xs-3
-    = game.win_amount.format
+tr
+  th = game.id
+  th
+    = game.bet_amount
+    '
+    = game.bet_amount_currency
+  th
+    = game.win_amount
+    '
+    = game.win_amount_currency
+    '
+    span.tag class="#{win_background(game.bet_amount, game.win_amount)}"
+      = " (#{game_revenue(game.bet_amount, game.win_amount)} #{game.win_amount_currency}) "
+  th = game.status
