@@ -14,4 +14,13 @@ module GameHelper
       'tag-danger'
     end
   end
+
+  def status_color(status)
+    case status
+    when 'pending' then 'info'
+    when 'in_progress' then 'warning'
+    when 'done' then 'success'
+    when 'failure' then 'danged'
+    end
+  end
 end
