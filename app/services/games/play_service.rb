@@ -10,7 +10,6 @@ module Games
 
     def perform
       Game.transaction do
-        init_bet_amount
         bet_amount_valid? ? process : transaction_failed
       end
     end
@@ -38,11 +37,6 @@ module Games
       account.amount > game.bet_amount
     end
 
-    def init_bet_amount
-      game.update(bet_amount: Money.new(game.bet_amount_cents *
-        currency.subunit_to_unit, currency))
-    end
-
     def init_win_amount(win_amount:)
       game.update(win_amount: Money.new(win_amount *
         currency.subunit_to_unit, currency))
@@ -55,7 +49,7 @@ module Games
 
     def transaction_in_progress
       game.proceed!
-      connection.transaction_in_progress
+      connection.transaction_in_progress(game)
     end
 
     def transaction_completed
