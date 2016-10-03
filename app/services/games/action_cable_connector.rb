@@ -13,8 +13,8 @@ module Games
       broadcast(channel, data: 'failure')
     end
 
-    def success
-      broadcast(channel, data: 'success')
+    def success(game)
+      broadcast(channel, status: 'game_created', game_partial: game_partial(game))
     end
 
     def transaction_failed
@@ -22,15 +22,35 @@ module Games
     end
 
     def transaction_completed(game:)
-      partial = GamesController.renderer.render(file: '/games/_game',
+      ordered_accounts = game.user.ordered_accounts;
+
+      accounts_select = GamesController.renderer.render(file: '/games/_accounts_select',
                                                 formats: [:html],
-                                                locals: { game: game },
+                                                locals: { accounts: ordered_accounts },
                                                 layout: false)
-      broadcast(channel, status: 'transaction_completed', partial: partial)
+
+      accounts_list = GamesController.renderer.render(file: '/home/_accounts_list',
+                                                formats: [:html],
+                                                locals: { accounts: ordered_accounts },
+                                                layout: false)
+      broadcast(channel,
+                status: 'transaction_completed',
+                accounts_select: accounts_select,
+                accounts_list: accounts_list,
+                game_id: game.id,
+                game_partial: game_partial(game))
     end
 
-    def transaction_in_progress
-      broadcast(channel, data: 'transaction in progress')
+    def transaction_in_progress(game)
+      broadcast(channel, status: 'transaction_in_progress',
+                game_id: game.id, game_partial: game_partial(game))
+    end
+
+    def game_partial(game)
+      GamesController.renderer.render(file: '/games/_game',
+                                              formats: [:html],
+                                              locals: { game: game },
+                                              layout: false)
     end
   end
 end
