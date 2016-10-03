@@ -20,6 +20,8 @@ gem 'slim-rails', '~> 3.1.1'
 gem 'bootstrap', '~> 4.0.0.alpha4'
 gem 'money-rails', '~> 1.7.0'
 gem 'monetize', '~> 1.4.0'
+gem 'acts_as_singleton', '~> 0.0.8'
+gem 'whenever', '~> 0.9.7', require: false
 
 group :development, :test do
   gem 'pry'
