@@ -18,7 +18,20 @@ module Games
     def process
       transaction_in_progress
       init_win_amount(win_amount: generator.generate)
-      transaction_completed
+      update_account
+      transaction_completed unless game.failure?
+    end
+
+    def update_account
+      acc = account.lock!('FOR SHARE')
+      acc.with_lock('FOR UPDATE') do
+        if acc.amount < game.bet_amount
+          transaction_failed
+        else
+          acc.amount += game.win_amount - game.bet_amount
+          acc.save!
+        end
+      end
     end
 
     def bet_amount_valid?
