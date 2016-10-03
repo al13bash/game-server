@@ -1,0 +1,4 @@
+ul.list-group.list-group-flush.accounts-list
+  - accounts.each do |account|
+    li.list-group-item
+      = account.amount.format

@@ -10,7 +10,4 @@
 .accounts-block.col-xs-3.pull-xs-right
   .card
     .card-header Accounts
-    ul.list-group.list-group-flush
-      - @user.accounts.each do |account|
-        li.list-group-item
-          = account.amount.format
+    = render 'home/accounts_list', accounts: @user.accounts
