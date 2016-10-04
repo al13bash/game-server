@@ -15,7 +15,7 @@ module RandomApi
 
     def url_params
       @_url_params ||= {
-        num: 1, min: 0, max: 2 * max,
+        num: 1, min: 0, max: max,
         col: 1, base: 10, format: 'plain', rnd: 'new'
       }.to_query
     end
