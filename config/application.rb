@@ -16,5 +16,7 @@ module GameServer
       g.helper = false
       g.test_framework nil
     end
+
+    config.autoload_paths << Rails.root.join('lib')
   end
 end
