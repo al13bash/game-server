@@ -17,6 +17,10 @@ module Games
       broadcast(channel, status: 'game_created', game_partial: game_partial(game))
     end
 
+    def validation_failed
+      broadcast(channel, status: 'validation_failed')
+    end
+
     def transaction_failed
       broadcast(channel, data: 'transaction failed')
     end
