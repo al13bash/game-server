@@ -10,12 +10,8 @@ module Games
 
     def perform
       Game.transaction do
-        validate? ? process : transaction_failed
+        process
       end
-    end
-
-    def validate?
-      bet_amount_valid? and !user_in_blacklist?
     end
 
     def process
@@ -35,14 +31,6 @@ module Games
           acc.save!
         end
       end
-    end
-
-    def bet_amount_valid?
-      account.amount > game.bet_amount
-    end
-
-    def user_in_blacklist?
-      true if generator(500).generate == 0
     end
 
     def init_win_amount(win_amount:)
@@ -66,7 +54,7 @@ module Games
     end
 
     def generator(max)
-      @_generator = RandomApi::IntegerGenerator.new(max: max)
+      RandomApi::IntegerGenerator.new(max: max)
     end
 
     def currency
