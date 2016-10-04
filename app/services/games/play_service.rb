@@ -22,8 +22,8 @@ module Games
     end
 
     def update_account
-      acc = account.lock!('FOR SHARE')
-      acc.with_lock('FOR UPDATE') do
+      ActiveRecord::Base.transaction do
+        acc = Account.lock.find(game.account_id)
         if acc.amount < game.bet_amount
           transaction_failed
         else
