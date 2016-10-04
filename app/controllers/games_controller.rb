@@ -9,7 +9,7 @@ class GamesController < ApplicationController
     @game.bet_amount_currency = @game.account.amount_currency
 
     if @game.save
-      GameWorker.perform_async(@game.id)
+      Games::BaseService.new(@game).start
       connection.success(@game)
     else
       connection.failure
