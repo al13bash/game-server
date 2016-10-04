@@ -14,14 +14,18 @@ class Game < ApplicationRecord
 
   aasm column: 'status' do
     state :pending, initial: true
-    state :failure, :in_progress, :done
+    state :failure, :in_validation, :in_progress, :done
 
     event :fail do
-      transitions from: [:pending, :in_progress], to: :failure
+      transitions from: [:pending, :in_progress, :in_validation], to: :failure
+    end
+
+    event :run_validation do
+      transitions from: :pending, to: :in_validation
     end
 
     event :proceed do
-      transitions from: :pending, to: :in_progress
+      transitions from: :in_validation, to: :in_progress
     end
 
     event :complete do
