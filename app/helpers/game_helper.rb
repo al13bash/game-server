@@ -18,9 +18,10 @@ module GameHelper
   def status_color(status)
     case status
     when 'pending' then 'info'
-    when 'in_progress' then 'warning'
+    when 'in_validation' then 'warning'
+    when 'in_progress' then 'primary'
     when 'done' then 'success'
-    when 'failure' then 'danged'
+    when 'failure' then 'danger'
     end
   end
 end
