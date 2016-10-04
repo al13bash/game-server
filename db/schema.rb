@@ -55,6 +55,15 @@ ActiveRecord::Schema.define(version: 20161004155921) do
     t.index ["user_id"], name: "index_games_on_user_id", using: :btree
   end
 
+  create_table "ratings", force: :cascade do |t|
+    t.integer  "game_id"
+    t.integer  "score_cents",    default: 0,     null: false
+    t.string   "score_currency", default: "EUR", null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.index ["game_id"], name: "index_ratings_on_game_id", using: :btree
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false

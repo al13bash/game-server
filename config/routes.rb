@@ -13,4 +13,6 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { sessions: 'sessions' }
 
   resources :games, only: ['create']
+
+  get '/rating', to: 'ratings#index'
 end

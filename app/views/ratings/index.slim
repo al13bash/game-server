@@ -1,0 +1,10 @@
+.col-xs-12
+  h4 Top wins
+  table.table.game-table
+    thead
+      tr
+        th Email
+        th Win amount
+
+    tbody
+      = render partial: 'win', collection: @top_wins

@@ -25,8 +25,8 @@ class User < ApplicationRecord
   private
 
   def create_account_for_user
-    accounts.build(amount_cents: 1_000_000, amount_currency: 'EUR')
-    accounts.build(amount_cents: 1_000_000, amount_currency: 'USD')
-    accounts.build(amount_cents: 1_000_000, amount_currency: 'RUB')
+    ['EUR','USD','RUB'].each do |currency|
+      accounts.build(amount_cents: 1_000_000, amount_currency: currency)
+    end
   end
 end
