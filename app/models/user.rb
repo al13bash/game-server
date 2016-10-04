@@ -7,6 +7,10 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  def ordered_accounts
+    accounts.order({ amount_currency: :asc })
+  end
+
   private
 
   def create_account_for_user
