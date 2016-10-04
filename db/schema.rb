@@ -31,6 +31,14 @@ ActiveRecord::Schema.define(version: 20161004155921) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "game_services", force: :cascade do |t|
+    t.integer  "revenue_amount_cents",    default: 0,     null: false
+    t.string   "revenue_amount_currency", default: "EUR", null: false
+    t.integer  "min_bet_amount_cents",    default: 1000
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+  end
+
   create_table "games", id: :bigserial, force: :cascade do |t|
     t.integer  "user_id"
     t.datetime "created_at",                          null: false

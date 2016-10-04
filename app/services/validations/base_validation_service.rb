@@ -15,10 +15,12 @@ module Validations
       end
     end
 
+    private
+
     def proceed_validation_result(result)
       if result
         decrement_validations_count
-        check_validations_count
+        play if game.validations_count == 0
       else
         game.fail!
         notify_user
@@ -26,19 +28,11 @@ module Validations
     end
 
     def play
-      binding.pry
       GameWorker.perform_async(game.id)
     end
 
     def decrement_validations_count
       game.decrement!(:validations_count)
-    end
-
-    def check_validations_count
-      if game.validations_count == 0
-        puts 'count 0'
-        play
-      end
     end
 
     def notify_user

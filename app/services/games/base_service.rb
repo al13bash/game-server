@@ -19,11 +19,11 @@ module Games
     private
 
     def validations_list
-      [
-        'Validations::BlacklistValidationService',
-        'Validations::SufficientBetAmountValidationService'
-      ]
+      %w(
+        Validations::BlacklistValidationService
+        Validations::SufficientBetAmountValidationService
+        Validations::MaxBetAmountValidationService
+      )
     end
-
   end
 end

@@ -1,6 +1,6 @@
 class CurrencyExchangeWorker
   include Sidekiq::Worker
-  # sidekiq_options queue: :currency
+  sidekiq_options queue: :currency
 
   def perform
     CurrencyExchangeApi::CurrencyExchangeParser.parse

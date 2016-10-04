@@ -1,6 +1,6 @@
 class ValidationWorker
   include Sidekiq::Worker
-  # sidekiq_options queue: :games
+  sidekiq_options queue: :validations
 
   def perform(game_id, service_name)
     service = service_name.constantize

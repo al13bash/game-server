@@ -17,18 +17,23 @@ module Games
     def process
       transaction_in_progress
       init_win_amount(win_amount: generator(game.bet_amount.to_i * 2).generate)
-      update_account
+      update_account_and_service
       transaction_completed unless game.failure?
     end
 
-    def update_account
+    def update_account_and_service
       ActiveRecord::Base.transaction do
-        acc = Account.lock.find(game.account_id)
-        if acc.amount < game.bet_amount
+        account = Account.lock.find(game.account_id)
+        service = GameService.lock.first
+
+        if account.amount < game.bet_amount
           transaction_failed
         else
-          acc.amount += game.win_amount - game.bet_amount
-          acc.save!
+          account.amount += game.win_amount - game.bet_amount
+          account.save!
+
+          service.revenue_amount_cents += game.bet_amount - game.win_amount
+          service.save!
         end
       end
     end
