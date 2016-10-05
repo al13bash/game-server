@@ -38,13 +38,16 @@ App.cable.subscriptions.create({
       case 'game_created':
         this.addGameToTable(data.game_partial);
         break;
+      case 'validation_failed':
+        this.updateGameStatus(data.game_id, data.game_status);
+        break;
       case 'transaction_in_progress':
-        this.updateGameInTable(data.game_id, data.game_partial);
+        this.updateGameStatus(data.game_id, data.game_status);
         break;
       case 'transaction_completed':
         this.updateGameInTable(data.game_id, data.game_partial);
-        this.updateAccountsSelect(data.accounts_select);
-        this.updateAccountsList(data.accounts_list);
+        this.updateAccountsSelect(data.accounts);
+        this.updateAccountsList(data.accounts);
         break;
       default:
         console.log('default')
@@ -59,10 +62,44 @@ App.cable.subscriptions.create({
   updateGameInTable: function(id, partial) {
     $('.game-row-' + id).replaceWith(partial);
   },
-  updateAccountsList: function(list) {
-    $('.accounts-list').replaceWith(list);
+  updateGameStatus: function(id, status) {
+    var $tag = $('.game-row-' + id).find('.status-col span');
+
+    $tag
+      .removeClass()
+      .addClass('tag tag-' + this.tagClass(status))
+      .text(status);
   },
-  updateAccountsSelect: function(select) {
-    $('.accounts-select').replaceWith(select);
+  updateAccountsList: function(accounts) {
+    var $accountsList = $('.accounts-list');
+
+    $.each(accounts, function(index, account) {
+      $accountsList.find('.account-' + index).text(account.amount);
+    });
+  },
+  updateAccountsSelect: function(accounts) {
+    var $accountsSelect = $('.accounts-select');
+
+    $.each(accounts, function(index, account) {
+      $accountsSelect
+        .find('.account-' + index)
+        .text(account.amount_currency + ' - (Balance: ' + account.amount + ')');
+    });
+  },
+  tagClass: function(status) {
+    switch (status) {
+      case 'pending':
+        return 'info';
+      case 'in_validation':
+        return 'warning';
+      case 'in_progress':
+        return 'primary';
+      case 'done':
+        return 'success';
+      case 'failure':
+        return 'danger';
+      default:
+        return 'default';
+    }
   }
 });

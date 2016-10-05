@@ -1,7 +1,7 @@
-class GameWorker
+class ValidationWorker
   include Sidekiq::Worker
 
-  sidekiq_options queue: :games
+  sidekiq_options queue: :validations
 
   sidekiq_options retry: 3
 
@@ -11,12 +11,12 @@ class GameWorker
     @game.fail!
   end
 
-  def perform(game_id)
+  def perform(game_id, service_name)
     @game_id = game_id
 
-    service = Games::PlayService.new(game_id: game_id)
+    service = service_name.constantize
 
-    service.perform
+    service.new(game_id).validate
   end
 
   def connection

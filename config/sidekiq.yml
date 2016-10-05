@@ -1,0 +1,6 @@
+---
+:queues:
+  - games
+  - validations
+  - currency
+  - default

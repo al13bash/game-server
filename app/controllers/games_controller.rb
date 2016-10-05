@@ -9,7 +9,7 @@ class GamesController < ApplicationController
     @game.bet_amount_currency = @game.account.amount_currency
 
     if @game.save
-      GameWorker.perform_async(@game.id)
+      Games::BaseService.new(@game).start
       connection.success(@game)
     else
       connection.failure
@@ -19,7 +19,7 @@ class GamesController < ApplicationController
   private
 
   def connection
-    @_connection ||= Games::ActionCableConnector.new(user_id: current_user.id)
+    Games::ActionCableConnections.instance.connection(current_user.id)
   end
 
   def game_params

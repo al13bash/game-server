@@ -11,12 +11,22 @@ class User < ApplicationRecord
     accounts.order({ amount_currency: :asc })
   end
 
+  def accounts_hash
+    ordered_accounts.inject(Hash.new(0)) do |hash, account|
+      hash[account.id] = {
+        id: account.id,
+        amount: account.amount.format,
+        amount_currency: account.amount.currency.iso_code
+      }
+      hash
+    end
+  end
+
   private
 
   def create_account_for_user
     accounts.build(amount_cents: 1_000_000, amount_currency: 'EUR')
     accounts.build(amount_cents: 1_000_000, amount_currency: 'USD')
     accounts.build(amount_cents: 1_000_000, amount_currency: 'RUB')
-    accounts.build(amount_cents: 1_000_000, amount_currency: 'BYN')
   end
 end

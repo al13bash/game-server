@@ -10,31 +10,45 @@ module Games
 
     def perform
       Game.transaction do
-        bet_amount_valid? ? process : transaction_failed
+        process
       end
     end
 
+    private
+
     def process
       transaction_in_progress
-      init_win_amount(win_amount: generator.generate)
-      update_account
+      init_win_amount(win_amount: generator(game.bet_amount.to_i * 2).generate)
+      update_account_and_service
       transaction_completed unless game.failure?
     end
 
-    def update_account
+    def update_account_and_service
       ActiveRecord::Base.transaction do
-        acc = Account.lock.find(game.account_id)
-        if acc.amount < game.bet_amount
-          transaction_failed
+        account = Account.lock.find(game.account_id)
+        service = GameService.lock.instance
+
+        if account.amount < game.bet_amount
+          transaction_failed(game)
         else
-          acc.amount += game.win_amount - game.bet_amount
-          acc.save!
+          account.amount += game.win_amount - game.bet_amount
+          account.save!
+
+          service.revenue_amount += exchange_to_eur(game.bet_amount)
+            - exchange_to_eur(game.win_amount)
+          service.save!
         end
       end
     end
 
-    def bet_amount_valid?
-      account.amount > game.bet_amount
+    def exchange_to_eur(amount)
+      currency_code = amount.currency.iso_code
+      return amount if currency_code == 'EUR'
+
+      rate = CurrencyExchange.instance.send(currency_code.downcase)
+      Money.add_rate(currency_code, 'EUR', rate)
+
+      amount.exchange_to('EUR')
     end
 
     def init_win_amount(win_amount:)
@@ -54,11 +68,11 @@ module Games
 
     def transaction_completed
       game.complete!
-      connection.transaction_completed(game: game)
+      connection.transaction_completed(game)
     end
 
-    def generator
-      @_generator = RandomApi::IntegerGenerator.new(max: game.bet_amount.to_i)
+    def generator(max)
+      RandomApi::IntegerGenerator.new(max: max)
     end
 
     def currency
@@ -66,7 +80,7 @@ module Games
     end
 
     def connection
-      @_connection ||= Games::ActionCableConnector.new(user_id: game.user_id)
+      Games::ActionCableConnections.instance.connection(game.user_id)
     end
   end
 end
