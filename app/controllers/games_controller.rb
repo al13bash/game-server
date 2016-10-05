@@ -19,7 +19,7 @@ class GamesController < ApplicationController
   private
 
   def connection
-    @_connection ||= Games::ActionCableConnector.new(user_id: current_user.id)
+    Games::ActionCableConnections.instance.connection(current_user.id)
   end
 
   def game_params

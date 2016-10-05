@@ -79,7 +79,7 @@ module Games
     end
 
     def connection
-      @_connection ||= Games::ActionCableConnector.new(user_id: game.user_id)
+      Games::ActionCableConnections.instance.connection(game.user_id)
     end
   end
 end
