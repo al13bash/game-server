@@ -34,8 +34,9 @@ module Games
           account.amount += game.win_amount - game.bet_amount
           account.save!
 
-          service.revenue_amount += exchange_to_eur(game.bet_amount)
-            - exchange_to_eur(game.win_amount)
+           service.revenue_amount_cents += game.bet_amount_cents - game.win_amount_cents
+          # service.revenue_amount += exchange_to_eur(game.bet_amount)
+          #   - exchange_to_eur(game.win_amount)
           service.save!
         end
       end
@@ -43,6 +44,7 @@ module Games
 
     def exchange_to_eur(amount)
       currency_code = amount.currency.iso_code
+      return amount if currency_code == 'EUR'
       rate = CurrencyExchange.instance.send(currency_code.downcase)
       Money.add_rate(currency_code, 'EUR', rate)
 

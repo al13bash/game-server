@@ -32,7 +32,9 @@ module Validations
     end
 
     def decrement_validations_count
-      game.decrement!(:validations_count)
+      ActiveRecord::Base.transaction do
+        game.lock!.decrement!(:validations_count)
+      end
     end
 
     def notify_user
