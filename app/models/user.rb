@@ -17,6 +17,5 @@ class User < ApplicationRecord
     accounts.build(amount_cents: 1_000_000, amount_currency: 'EUR')
     accounts.build(amount_cents: 1_000_000, amount_currency: 'USD')
     accounts.build(amount_cents: 1_000_000, amount_currency: 'RUB')
-    accounts.build(amount_cents: 1_000_000, amount_currency: 'BYN')
   end
 end
