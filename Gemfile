@@ -22,7 +22,6 @@ gem 'money-rails', '~> 1.7.0'
 gem 'monetize', '~> 1.4.0'
 gem 'acts_as_singleton', '~> 0.0.8'
 gem 'whenever', '~> 0.9.7', require: false
-gem 'tzinfo', '~> 1.2', '>= 1.2.2'
 
 group :development, :test do
   gem 'pry'

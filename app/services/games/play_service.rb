@@ -44,6 +44,7 @@ module Games
     def exchange_to_eur(amount)
       currency_code = amount.currency.iso_code
       return amount if currency_code == 'EUR'
+
       rate = CurrencyExchange.instance.send(currency_code.downcase)
       Money.add_rate(currency_code, 'EUR', rate)
 
