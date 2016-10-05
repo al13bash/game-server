@@ -38,7 +38,7 @@ module Validations
     end
 
     def notify_user
-      connection.validation_failed
+      connection.validation_failed(game)
     end
 
     def connection

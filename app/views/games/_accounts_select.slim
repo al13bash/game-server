@@ -1,3 +1,3 @@
 select.form-control.accounts-select id='account_id' name='account_id' required=true
   - accounts_select(accounts).each do |account|
-    option value=account[:value] #{account[:label]}
+    option class="account-#{account[:value]}" value=account[:value] #{account[:label]}

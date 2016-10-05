@@ -29,7 +29,7 @@ module Games
         service = GameService.lock.instance
 
         if account.amount < game.bet_amount
-          transaction_failed
+          transaction_failed(game)
         else
           account.amount += game.win_amount - game.bet_amount
           account.save!
@@ -67,7 +67,7 @@ module Games
 
     def transaction_completed
       game.complete!
-      connection.transaction_completed(game: game)
+      connection.transaction_completed(game)
     end
 
     def generator(max)
