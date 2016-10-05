@@ -23,6 +23,7 @@ module Games
         Validations::BlacklistValidationService
         Validations::SufficientBetAmountValidationService
         Validations::MaxBetAmountValidationService
+        Validations::MinBetAmountValidationService
       )
     end
   end

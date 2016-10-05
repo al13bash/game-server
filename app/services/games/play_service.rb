@@ -26,7 +26,7 @@ module Games
     def update_account_and_service
       ActiveRecord::Base.transaction do
         account = Account.lock.find(game.account_id)
-        service = GameService.lock.first
+        service = GameService.lock.instance
 
         if account.amount < game.bet_amount
           transaction_failed
@@ -34,9 +34,8 @@ module Games
           account.amount += game.win_amount - game.bet_amount
           account.save!
 
-           service.revenue_amount_cents += game.bet_amount_cents - game.win_amount_cents
-          # service.revenue_amount += exchange_to_eur(game.bet_amount)
-          #   - exchange_to_eur(game.win_amount)
+          service.revenue_amount += exchange_to_eur(game.bet_amount)
+            - exchange_to_eur(game.win_amount)
           service.save!
         end
       end

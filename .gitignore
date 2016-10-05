@@ -35,3 +35,5 @@
 
 # Mac finder artifacts
 .DS_Store
+
+dump.rdb
