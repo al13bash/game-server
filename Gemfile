@@ -24,6 +24,8 @@ gem 'acts_as_singleton', '~> 0.0.8'
 gem 'whenever', '~> 0.9.7', require: false
 
 group :development, :test do
+  gem 'fabrication'
+  gem 'faker'
   gem 'pry'
   gem 'rubocop', require: false
   gem 'rspec-rails', '~> 3.0'
@@ -38,6 +40,7 @@ end
 
 group :test do
   gem 'rubocop-junit-formatter', '~> 0.1.3', require: false
+  gem 'rspec-sidekiq'
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
