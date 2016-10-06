@@ -1,5 +1,7 @@
 module Games
   class PlayService
+    include Concerns::CurrencyExchanger
+
     attr_reader :game
 
     delegate :account, to: :game
@@ -41,16 +43,6 @@ module Games
       end
     end
 
-    def exchange_to_eur(amount)
-      currency_code = amount.currency.iso_code
-      return amount if currency_code == 'EUR'
-
-      rate = CurrencyExchange.instance.send(currency_code.downcase)
-      Money.add_rate(currency_code, 'EUR', rate)
-
-      amount.exchange_to('EUR')
-    end
-
     def init_win_amount(win_amount:)
       game.update(win_amount: Money.new(win_amount *
         currency.subunit_to_unit, currency))
@@ -69,6 +61,8 @@ module Games
     def transaction_completed
       game.complete!
       connection.transaction_completed(game)
+
+      perform_rating
     end
 
     def generator(max)
@@ -81,6 +75,10 @@ module Games
 
     def connection
       Games::ActionCableConnections.instance.connection(game.user_id)
+    end
+
+    def perform_rating
+      Ratings::RatingChecker.new(game).update_rating!
     end
   end
 end

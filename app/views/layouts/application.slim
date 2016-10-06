@@ -13,6 +13,9 @@ html
         | ☰
       #exCollapsingNavbar2.collapse.navbar-toggleable-xs
         = link_to 'GameServer', root_path, class: 'navbar-brand'
+        ul.nav.navbar-nav
+          li.nav-item
+            = link_to 'Rating', rating_path, class: 'nav-link'
 
         ul.nav.navbar-nav.pull-xs-right
           = authentication_buttons

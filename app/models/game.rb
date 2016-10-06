@@ -3,6 +3,7 @@ class Game < ApplicationRecord
 
   belongs_to :user
   belongs_to :account
+  has_many :ratings, dependent: :destroy
 
   validates :bet_amount_cents, :win_amount_cents,
             numericality: { greater_than_or_equal_to: 0 }
