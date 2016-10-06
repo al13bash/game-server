@@ -3,7 +3,7 @@ require 'rails_helper'
 describe GameWorker do
   subject(:job) { described_class.perform_async(game.id) }
 
-  let(:game) { Fabricate(:game) }
+  let(:game) { create :game }
 
   it { expect(described_class).to be_processed_in :games }
   it { expect(described_class).to be_retryable 3 }

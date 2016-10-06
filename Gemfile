@@ -24,7 +24,7 @@ gem 'acts_as_singleton', '~> 0.0.8'
 gem 'whenever', '~> 0.9.7', require: false
 
 group :development, :test do
-  gem 'fabrication'
+  gem "factory_girl_rails", "~> 4.0"
   gem 'faker'
   gem 'pry'
   gem 'rubocop', require: false
