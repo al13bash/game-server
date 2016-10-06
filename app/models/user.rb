@@ -12,7 +12,7 @@ class User < ApplicationRecord
   end
 
   def accounts_hash
-    ordered_accounts.each_with_object(Hash.new(0)) do |account, hash|
+    ordered_accounts.each_with_object({}) do |account, hash|
       hash[account.id] = {
         id: account.id,
         amount: account.amount.format,

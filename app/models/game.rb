@@ -7,10 +7,13 @@ class Game < ApplicationRecord
   validates :bet_amount_cents, :win_amount_cents,
     numericality: { greater_than_or_equal_to: 0 }
 
+  scope :last_twenty, -> { order(created_at: :desc).first(20) }
+
   monetize :bet_amount_cents, as: :bet_amount,
                               with_model_currency: :bet_amount_currency
   monetize :win_amount_cents, as: :win_amount,
                               with_model_currency: :win_amount_currency
+
 
   aasm column: 'status' do
     state :pending, initial: true
