@@ -5,14 +5,14 @@ class User < ApplicationRecord
   after_create :create_account_for_user
 
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+    :recoverable, :rememberable, :trackable, :validatable
 
   def ordered_accounts
-    accounts.order({ amount_currency: :asc })
+    accounts.order(amount_currency: :asc)
   end
 
   def accounts_hash
-    ordered_accounts.inject(Hash.new(0)) do |hash, account|
+    ordered_accounts.each_with_object(Hash.new(0)) do |account, hash|
       hash[account.id] = {
         id: account.id,
         amount: account.amount.format,

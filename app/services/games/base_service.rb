@@ -19,12 +19,12 @@ module Games
     private
 
     def validations_list
-      %w(
+      %w[
         Validations::BlacklistValidationService
         Validations::SufficientBetAmountValidationService
         Validations::MaxBetAmountValidationService
         Validations::MinBetAmountValidationService
-      )
+      ]
     end
   end
 end

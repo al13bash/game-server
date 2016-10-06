@@ -1,7 +1,7 @@
 module Validations
   class BlacklistValidationService < Validations::BaseValidationService
     def validation_method
-      generator(500).generate != 0
+      generator(500).generate.nonzero?
     end
 
     private
