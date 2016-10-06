@@ -1,3 +1,3 @@
 Fabricator(:account) do
-  amount_cents 100_000
+  amount_cents 1_500
 end
