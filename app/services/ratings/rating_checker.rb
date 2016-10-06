@@ -15,7 +15,7 @@ module Ratings
       if top_is_not_full?
         Rating.create!(game: game, score: game_win_amount)
       elsif top_min < game_win_amount.cents
-        top_min.update!(game: game, score: game_win_amount)
+        top.last.update!(game: game, score: game_win_amount)
       end
     end
 

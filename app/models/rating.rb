@@ -3,7 +3,7 @@ class Rating < ApplicationRecord
 
   belongs_to :game
 
-  scope :top, -> { limit(RATING_TOP_AMOUNT) }
+  scope :top, -> { limit(RATING_TOP_AMOUNT).order(score_cents: :desc) }
 
   monetize :score_cents, as: :score,
                               with_model_currency: :score_currency
