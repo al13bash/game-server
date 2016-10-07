@@ -19,6 +19,7 @@ RSpec.describe Games::PlayService do
 
     it 'changes account amount' do
       amount = game.account.amount_cents
+
       expect { action }
         .to change { game.reload.account.amount_cents }
         .from(amount)
@@ -60,6 +61,7 @@ RSpec.describe Games::PlayService do
     it 'exchanges game result before adding to daily revenue' do
       action
       game.reload
+
       expect(GameService.instance.revenue_amount_cents)
         .not_to eq(game.bet_amount_cents - game.win_amount_cents)
     end
