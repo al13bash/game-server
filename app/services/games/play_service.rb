@@ -31,13 +31,13 @@ module Games
         service = GameService.lock.instance
 
         if account.amount < game.bet_amount
-          transaction_failed(game)
+          transaction_failed
         else
           account.amount += game.win_amount - game.bet_amount
           account.save!
 
-          service.revenue_amount += exchange_to_eur(game.bet_amount)
-            - exchange_to_eur(game.win_amount)
+          service.revenue_amount += exchange_to_eur(game.bet_amount -
+            game.win_amount)
           service.save!
         end
       end
@@ -50,7 +50,7 @@ module Games
 
     def transaction_failed
       game.fail!
-      connection.transaction_failed
+      connection.transaction_failed(game)
     end
 
     def transaction_in_progress

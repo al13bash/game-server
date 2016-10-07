@@ -5,8 +5,4 @@ class UserChannel < ApplicationCable::Channel
 
   def unsubscribed
   end
-
-  def create_game(data)
-    puts data
-  end
 end
