@@ -1,5 +1,8 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
+  config.secret_key_base = ENV["SECRET_KEY_BASE"]
+  config.web_socket_server_api = "wss://bet-game-server.herokuapp.com/cable"
+  config.action_cable.allowed_request_origins = ['https://bet-game-server.herokuapp.com', 'http://bet-game-server.herokuapp.com']
 
   # Code is not reloaded between requests.
   config.cache_classes = true

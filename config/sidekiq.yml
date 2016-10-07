@@ -1,4 +1,7 @@
 ---
+:concurrency: 3
+production:
+  :concurrency: 3
 :queues:
   - games
   - validations

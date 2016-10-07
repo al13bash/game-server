@@ -298,6 +298,7 @@ DEPENDENCIES
   pry
   puma (~> 3.0)
   rails (~> 5.0.0, >= 5.0.0.1)
+  redis
   rest-client (~> 2.0.0)
   rspec-rails (~> 3.0)
   rspec-sidekiq
@@ -315,6 +316,9 @@ DEPENDENCIES
   web-console
   webmock (~> 2.1.0)
   whenever (~> 0.9.7)
+
+RUBY VERSION
+   ruby 2.3.1p112
 
 BUNDLED WITH
    1.13.2

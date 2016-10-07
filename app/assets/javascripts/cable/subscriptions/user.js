@@ -22,7 +22,7 @@ App.cable.subscriptions.create({
     });
   },
   createGame: function(data) {
-    $.post('/games', { game: data });
+    $.post('https://bet-game-server.herokuapp.com/games', { game: data });
   },
   disconnected: function(data) {
     console.log('disconnected', data);
@@ -53,7 +53,7 @@ App.cable.subscriptions.create({
         console.log('default')
     }
   },
-  resetForm() {
+  resetForm: function() {
     $('form.new-game-form').get(0).reset();
   },
   addGameToTable: function(partial) {
