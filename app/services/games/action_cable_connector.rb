@@ -43,6 +43,8 @@ module Games
                          game_status: game.status)
     end
 
+    private
+
     def game_partial(game)
       GamesController.renderer.render(file: '/games/_game',
                                       formats: [:html],

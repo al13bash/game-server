@@ -1,6 +1,6 @@
 module CurrencyExchangeApi
   class CurrencyExchangeParser
-    API_URL = 'http://api.fixer.io/latest'
+    API_URL = 'http://api.fixer.io/latest'.freeze
 
     class << self
       def parse

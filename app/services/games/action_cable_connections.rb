@@ -12,6 +12,8 @@ module Games
       connections[user_id] ||= create_connection(user_id)
     end
 
+    private
+
     def create_connection(user_id)
       Games::ActionCableConnector.new(user_id: user_id)
     end
