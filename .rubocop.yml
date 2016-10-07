@@ -17,7 +17,9 @@ Metrics/ClassLength:
   Max: 200
 
 Metrics/LineLength:
-  Max: 80
+  Max: 120
+  Exclude:
+    - 'config/initializers/devise.rb'
 
 Metrics/MethodLength:
   Enabled: false

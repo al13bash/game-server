@@ -15,7 +15,6 @@ class Game < ApplicationRecord
   monetize :win_amount_cents, as: :win_amount,
                               with_model_currency: :win_amount_currency
 
-
   aasm column: 'status' do
     state :pending, initial: true
     state :failure, :in_validation, :in_progress, :done
