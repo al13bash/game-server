@@ -20,7 +20,7 @@ module Validations
     def proceed_validation_result(result)
       if result
         decrement_validations_count
-        play if game.validations_count == 0
+        play if game.validations_count.zero?
       else
         game.fail!
         notify_user

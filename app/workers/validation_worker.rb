@@ -5,7 +5,7 @@ class ValidationWorker
 
   sidekiq_options retry: 3
 
-  sidekiq_retries_exhausted do |message|
+  sidekiq_retries_exhausted do |_message|
     connection.failure
 
     @game.fail!

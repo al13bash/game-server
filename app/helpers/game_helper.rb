@@ -6,9 +6,9 @@ module GameHelper
   def win_background(bet_amount, win_amount)
     revenue = game_revenue(bet_amount, win_amount)
 
-    if revenue > 0
+    if revenue.positive?
       'tag-success'
-    elsif revenue == 0
+    elsif revenue.zero?
       'tag-primary'
     else
       'tag-danger'

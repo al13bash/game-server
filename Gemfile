@@ -24,9 +24,12 @@ gem 'acts_as_singleton', '~> 0.0.8'
 gem 'whenever', '~> 0.9.7', require: false
 
 group :development, :test do
+  gem 'factory_girl_rails', '~> 4.0'
+  gem 'faker', '~> 1.6.6'
   gem 'pry'
   gem 'rubocop', require: false
   gem 'rspec-rails', '~> 3.0'
+  gem 'webmock', '~> 2.1.0'
 end
 
 group :development do
@@ -38,6 +41,7 @@ end
 
 group :test do
   gem 'rubocop-junit-formatter', '~> 0.1.3', require: false
+  gem 'rspec-sidekiq'
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
