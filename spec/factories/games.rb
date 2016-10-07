@@ -3,6 +3,12 @@ FactoryGirl.define do
     bet_amount_cents 1000
   end
 
+  factory :game_completed, parent: :game do
+    bet_amount_cents 1000
+    win_amount_cents 1500
+    status :done
+  end
+
   factory :game_in_validation, parent: :game do
     status :in_validation
     validations_count 20
