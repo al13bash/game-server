@@ -22,7 +22,9 @@ App.cable.subscriptions.create({
     });
   },
   createGame: function(data) {
-    $.post('https://bet-game-server.herokuapp.com/games', { game: data });
+    var destinationUrl = window.location.origin;
+
+    $.post(destinationUrl + '/games', { game: data });
   },
   disconnected: function(data) {
     console.log('disconnected', data);
