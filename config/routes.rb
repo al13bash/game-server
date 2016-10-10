@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   root to: 'home#cabinet'
 
-  devise_for :users, controllers: { sessions: 'sessions' }
+  devise_for :users, controllers: { sessions: 'sessions', registrations: 'registrations' }
 
   resources :games, only: ['create']
 

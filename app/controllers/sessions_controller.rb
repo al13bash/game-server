@@ -1,6 +1,8 @@
 class SessionsController < Devise::SessionsController
+  include ForCable
+
   def create
-    cookies.signed[:user_id] = current_user&.id
+    set_current_user_for_action_cable
     super
   end
 
