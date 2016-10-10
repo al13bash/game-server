@@ -5,8 +5,8 @@ class Game < ApplicationRecord
   belongs_to :account
   has_many :ratings, dependent: :destroy
 
-  validates :bet_amount_cents, :win_amount_cents,
-    numericality: { greater_than_or_equal_to: 0 }
+  validates :bet_amount_cents, numericality: { greater_than: 0 }
+  validates :win_amount_cents, numericality: { greater_than_or_equal_to: 0 }
 
   scope :last_twenty, -> { order(created_at: :desc).first(20) }
 

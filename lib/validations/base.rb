@@ -1,5 +1,5 @@
 module Validations
-  class BaseValidationService
+  class Base
     attr_reader :game
 
     def initialize(game_id)

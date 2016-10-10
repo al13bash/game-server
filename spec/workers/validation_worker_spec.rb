@@ -4,7 +4,7 @@ describe ValidationWorker do
   subject(:job) { described_class.perform_async(game.id, service_name) }
 
   let(:game) { create :game }
-  let(:service_name) { 'Validations::BlacklistValidationService' }
+  let(:service_name) { 'Validations::Blacklist' }
 
   it { expect(described_class).to be_processed_in :validations }
   it { expect(described_class).to be_retryable 3 }

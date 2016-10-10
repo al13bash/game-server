@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Validations::MinBetAmountValidationService do
+describe Validations::MinBetAmount do
   context 'game with valid bet amount' do
     let(:game) { create :game_in_validation }
 
