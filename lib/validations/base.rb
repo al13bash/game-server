@@ -29,7 +29,7 @@ module Validations
 
     def validation_failed
       game.fail!
-      GameError.create(game_id: game.id, app_error_id: validation_error.id)
+      GameError.create!(game_id: game.id, app_error_id: validation_error.id)
     end
 
     def play
@@ -47,7 +47,7 @@ module Validations
     end
 
     def validation_error
-      AppError.find_by(kind: error_type)
+      AppError.find_by!(kind: error_type)
     end
 
     def error_type
