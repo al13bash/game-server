@@ -8,7 +8,12 @@ module Validations
 
     def max_bet_amount
       service = GameService.instance
-      service.revenue_amount_cents.to_f / 2 + service.min_bet_amount_cents
+
+      if service.revenue_amount_cents.positive?
+        service.revenue_amount_cents.to_f / 2 + service.min_bet_amount_cents
+      else
+        service.min_bet_amount_cents
+      end
     end
   end
 end
