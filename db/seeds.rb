@@ -1,4 +1,4 @@
-GameService.instance.update!(revenue_amount_cents: 1_000_000)
+GameService.instance.update!(revenue_amount_cents: 0)
 
 CurrencyExchange.instance.update!(usd: 1.1161, rub: 69.7125)
 
@@ -31,4 +31,4 @@ errors_messages = [
   }
 ]
 
-errors_messages.each { |error| AppError.create(error) }
+errors_messages.each { |error| AppError.find_or_create_by!(error) }
