@@ -1,5 +1,5 @@
 module Validations
-  class MaxBetAmountValidationService < Validations::BaseValidationService
+  class MaxBetAmountValidation < Validations::BaseValidation
     def validation_method
       max_bet_amount >= game.bet_amount_cents
     end

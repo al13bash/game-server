@@ -1,5 +1,5 @@
 module Validations
-  class SufficientBetAmountValidationService < Validations::BaseValidationService
+  class SufficientBetAmountValidation < Validations::BaseValidation
     def validation_method
       game.account.amount > game.bet_amount
     end
