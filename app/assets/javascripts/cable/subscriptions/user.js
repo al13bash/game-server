@@ -42,6 +42,7 @@ App.cable.subscriptions.create({
         break;
       case 'validation_failed':
         this.updateGameStatus(data.game_id, data.game_status);
+        this.addGameErrorMessage(data.game_id, data.message);
         break;
       case 'transaction_in_progress':
         this.updateGameStatus(data.game_id, data.game_status);
@@ -60,6 +61,11 @@ App.cable.subscriptions.create({
   },
   addGameToTable: function(partial) {
     $('.game-table tbody').prepend(partial);
+  },
+  addGameErrorMessage: function(id, message) {
+    var $tag = $('<span class="tag tag-danger">' + message + '</span><br>');
+
+    $('.game-row-' + id).find('.win-col').append($tag);
   },
   updateGameInTable: function(id, partial) {
     $('.game-row-' + id).replaceWith(partial);
