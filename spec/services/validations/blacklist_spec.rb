@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Validations::BlacklistValidation do
+describe Validations::Blacklist do
   let!(:game) { create(:game_in_validation) }
 
   context 'valid response from RandomAPI' do

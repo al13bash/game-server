@@ -1,5 +1,5 @@
 module Validations
-  class MinBetAmountValidation < Validations::BaseValidation
+  class MinBetAmount < Validations::Base
     def validation_method
       service = GameService.instance
       game.bet_amount_cents >= service.min_bet_amount_cents
