@@ -4,6 +4,10 @@ module Validations
       generator(500).generate.nonzero?
     end
 
+    def error_type
+      :user_in_blacklist
+    end
+
     private
 
     def generator(max)

@@ -4,6 +4,8 @@ class Game < ApplicationRecord
   belongs_to :user
   belongs_to :account
   has_many :ratings, dependent: :destroy
+  has_many :game_errors
+  has_many :app_errors, through: :game_errors
 
   validates :bet_amount_cents, numericality: { greater_than: 0 }
   validates :win_amount_cents, numericality: { greater_than_or_equal_to: 0 }

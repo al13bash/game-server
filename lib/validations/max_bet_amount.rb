@@ -4,6 +4,10 @@ module Validations
       max_bet_amount >= game.bet_amount_cents
     end
 
+    def error_type
+      :max_bet_amount_exceeded
+    end
+
     private
 
     def max_bet_amount
