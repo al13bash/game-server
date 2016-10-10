@@ -18,10 +18,11 @@ module Games
                          game_partial: game_partial(game))
     end
 
-    def validation_failed(game)
+    def validation_failed(game, message)
       broadcast(channel, status: 'validation_failed',
                          game_id: game.id,
-                         game_status: game.status)
+                         game_status: game.status,
+                         message: message)
     end
 
     def transaction_failed(game)

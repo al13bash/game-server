@@ -22,9 +22,14 @@ module Validations
         decrement_validations_count
         play if game.validations_count.zero?
       else
-        game.fail!
+        validation_failed
         notify_user
       end
+    end
+
+    def validation_failed
+      game.fail!
+      GameError.create(game_id: game.id, app_error_id: validation_error.id)
     end
 
     def play
@@ -38,7 +43,15 @@ module Validations
     end
 
     def notify_user
-      connection.validation_failed(game)
+      connection.validation_failed(game, validation_error.message)
+    end
+
+    def validation_error
+      AppError.find_by(kind: error_type)
+    end
+
+    def error_type
+      :validation_failed
     end
 
     def connection
