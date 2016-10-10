@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161004155921) do
+ActiveRecord::Schema.define(version: 20161010084402) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,11 +24,27 @@ ActiveRecord::Schema.define(version: 20161004155921) do
     t.index ["user_id"], name: "index_accounts_on_user_id", using: :btree
   end
 
+  create_table "app_errors", force: :cascade do |t|
+    t.string   "kind"
+    t.text     "message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "currency_exchanges", force: :cascade do |t|
     t.decimal  "usd"
     t.decimal  "rub"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "game_errors", force: :cascade do |t|
+    t.integer  "game_id"
+    t.integer  "app_error_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["app_error_id"], name: "index_game_errors_on_app_error_id", using: :btree
+    t.index ["game_id"], name: "index_game_errors_on_game_id", using: :btree
   end
 
   create_table "game_services", force: :cascade do |t|
@@ -83,4 +99,6 @@ ActiveRecord::Schema.define(version: 20161004155921) do
     t.index ["username"], name: "index_users_on_username", unique: true, using: :btree
   end
 
+  add_foreign_key "game_errors", "app_errors"
+  add_foreign_key "game_errors", "games"
 end
